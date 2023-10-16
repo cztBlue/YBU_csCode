@@ -88,16 +88,9 @@ int getGapYearDay(int starYear, int stopYear)
    return sumDay;
 }
 
-int main()
+int getAllGapDays(int birthYear, int birthMon, int birthDay)
 {
-   int birthYear = 2004;
-   int birthMon = 3;
-   int birthDay = 18;
-
-   int deltaYear;
-   int deltaMon;
-   int deltaDay;
-
+   int sumDay, deltaYear, deltaMon, deltaDay;
    // 日期转时间戳
    time_t now = time(0);
    struct tm *now_ = localtime(&now);
@@ -106,9 +99,16 @@ int main()
    deltaMon = (now_->tm_mon + 1) - birthMon;
    deltaDay = (now_->tm_mday) - birthDay;
 
-   cout << getGapYearDay(birthYear, now_->tm_year + 1900) + getLastDay(birthYear, birthMon, birthDay) +
-               getBeforeDay(now_->tm_year + 1900, now_->tm_mon + 1, now_->tm_mday)<<" Days"<< endl;
+   sumDay = getGapYearDay(birthYear, now_->tm_year + 1900) + getLastDay(birthYear, birthMon, birthDay) +
+            getBeforeDay(now_->tm_year + 1900, now_->tm_mon + 1, now_->tm_mday);
+   return sumDay;
+}
 
-   // cout << getLastDay(birthYear, birthMon, birthDay) << endl;
-   // cout << getBeforeDay(now_->tm_year + 1900, now_->tm_mon + 1, now_->tm_mday) << endl;
+int main()
+{
+   int birthYear = 2004;
+   int birthMon = 3;
+   int birthDay = 18;
+
+   cout << getAllGapDays(birthYear, birthMon, birthDay) << " Days" << endl;
 }
